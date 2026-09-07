@@ -4,95 +4,152 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Korumalı Pano</title>
+<title>Raporlar</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%94%92%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%8A%3C/text%3E%3C/svg%3E">
 <style>
-  :root{ color-scheme: dark; }
-  html,body{ height:100%; }
-  body{ margin:0; background:#000; color:#fff;
-        font-family:"IBM Plex Sans",system-ui,-apple-system,sans-serif; }
-  #gate{ min-height:100dvh; display:grid; place-items:center; padding:24px; }
-  .box{ width:100%; max-width:380px; background:#0e0e10;
-        border:1px solid rgba(255,255,255,.20); border-radius:18px; padding:30px 28px 26px; }
-  .lock{ font-size:26px; line-height:1; margin-bottom:16px; }
-  h1{ font-family:"Manrope",system-ui,sans-serif; font-size:20px; font-weight:800;
-      letter-spacing:-.018em; margin:0 0 7px; }
-  p.hint{ font-size:13px; color:#8f8d87; margin:0 0 20px; line-height:1.55; }
-  label{ display:block; font-size:12.5px; font-weight:500; margin-bottom:7px; color:#c3c2b7; }
-  input{ width:100%; padding:12px 14px; font-size:15px; font-family:inherit;
-         border:1px solid rgba(255,255,255,.22); border-radius:10px; background:#16161a;
-         color:#fff; box-sizing:border-box; }
-  input:focus{ outline:2px solid #9085e9; outline-offset:1px; border-color:transparent; }
-  button{ width:100%; margin-top:13px; padding:12px 16px; font-size:14.5px; font-weight:700;
-          font-family:inherit; color:#0b0b0f; background:#9085e9; border:0; border-radius:10px; cursor:pointer; }
-  button:hover{ background:#a79ef0; }
-  button:disabled{ opacity:.55; cursor:default; }
-  .err{ margin-top:13px; font-size:13px; color:#e66767; min-height:18px; }
+  :root{
+    color-scheme: dark;
+    --bg:#000;
+    --card:#0e0e10;
+    --card-hover:#15151a;
+    --edge:rgba(255,255,255,.16);
+    --edge-strong:rgba(255,255,255,.34);
+    --fg:#fff;
+    --fg-2:#c3c2b7;
+    --fg-3:#8f8d87;
+    --accent:#9085e9;
+    --accent-dim:#6d63bd;
+  }
+  *{box-sizing:border-box}
+  html,body{min-height:100%}
+  body{
+    margin:0; background:var(--bg); color:var(--fg);
+    font-family:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+    font-size:15px; line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:760px; margin:0 auto; padding:56px 22px 80px;
+        display:flex; flex-direction:column; gap:34px}
+
+  header{display:flex; flex-direction:column; gap:9px}
+  .eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:11px;
+           letter-spacing:.16em; text-transform:uppercase; color:var(--fg-3)}
+  h1{font-family:Manrope,system-ui,sans-serif; font-size:31px; font-weight:800;
+     letter-spacing:-.022em; margin:0; line-height:1.14}
+  header p{margin:0; font-size:14px; color:var(--fg-3); max-width:52ch}
+
+  .group{display:flex; flex-direction:column; gap:11px}
+  .group-label{font-family:"IBM Plex Mono",monospace; font-size:10.5px;
+               letter-spacing:.14em; text-transform:uppercase; color:var(--fg-3);
+               padding-bottom:2px; border-bottom:1px solid var(--edge)}
+
+  .report{
+    display:grid; grid-template-columns:1fr auto; align-items:center; gap:18px;
+    background:var(--card); border:1px solid var(--edge); border-radius:16px;
+    padding:20px 22px; text-decoration:none; color:inherit;
+    transition:background .14s ease, border-color .14s ease, transform .14s ease;
+  }
+  a.report:hover{background:var(--card-hover); border-color:var(--edge-strong); transform:translateY(-1px)}
+  a.report:focus-visible{outline:2px solid var(--accent); outline-offset:3px}
+  .report .main{display:flex; flex-direction:column; gap:6px; min-width:0}
+  .report .title{font-family:Manrope,sans-serif; font-size:17px; font-weight:700;
+                 letter-spacing:-.014em; display:flex; align-items:center; gap:9px; flex-wrap:wrap}
+  .report .desc{font-size:13.5px; color:var(--fg-2); line-height:1.5}
+  .report .stamp{font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--fg-3);
+                 display:flex; gap:12px; flex-wrap:wrap; margin-top:2px}
+
+  .tag{font-family:"IBM Plex Mono",monospace; font-size:9.5px; font-weight:500;
+       letter-spacing:.11em; text-transform:uppercase; padding:3px 7px; border-radius:4px;
+       border:1px solid var(--edge); color:var(--fg-3); white-space:nowrap}
+  .tag.tr{color:#ffa06b; border-color:rgba(255,160,107,.36)}
+  .tag.hb{color:#ff8f9c; border-color:rgba(255,143,156,.36)}
+  .tag.multi{color:var(--accent); border-color:rgba(144,133,233,.42)}
+
+  .go{width:38px; height:38px; border-radius:50%; border:1px solid var(--edge);
+      display:grid; place-items:center; flex:none; color:var(--fg-2);
+      transition:border-color .14s ease, color .14s ease, background .14s ease}
+  a.report:hover .go{border-color:var(--accent); color:var(--accent); background:rgba(144,133,233,.10)}
+
+  .report.soon{opacity:.5; cursor:default}
+  .report.soon .go{border-style:dashed}
+
+  .lockline{display:flex; align-items:center; gap:7px; font-family:"IBM Plex Mono",monospace;
+            font-size:11px; color:var(--fg-3)}
+
+  footer{border-top:1px solid var(--edge); padding-top:16px;
+         font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--fg-3);
+         display:flex; flex-wrap:wrap; gap:8px 18px; justify-content:space-between}
+
+  @media (max-width:520px){
+    .wrap{padding:38px 18px 60px; gap:28px}
+    h1{font-size:26px}
+    .report{grid-template-columns:1fr; gap:14px}
+    .go{display:none}
+  }
+  @media (prefers-reduced-motion:reduce){
+    a.report,.go{transition:none}
+    a.report:hover{transform:none}
+  }
 </style>
 </head>
 <body>
-<div id="gate">
-  <form class="box" id="f">
-    <div class="lock">&#128274;</div>
-    <h1>Bu pano korumalıdır</h1>
-    <p class="hint">İçeriği görüntülemek için parolayı girin. Veriler sayfa içinde şifrelenmiş olarak tutulur ve yalnızca tarayıcınızda çözülür.</p>
-    <label for="p">Parola</label>
-    <input id="p" type="password" autocomplete="current-password" autofocus>
-    <button id="b" type="submit">Panoyu aç</button>
-    <div class="err" id="e"></div>
-  </form>
+<div class="wrap">
+
+  <header>
+    <span class="eyebrow">Tangle Teezer</span>
+    <h1>Raporlar</h1>
+    <p>Panolar parola korumalıdır; içerik yalnızca tarayıcınızda çözülür. Raporu açmak için başlığa tıklayın.</p>
+  </header>
+
+  <section class="group">
+    <span class="group-label">Yayında</span>
+
+    <a class="report" href="performans/">
+      <span class="main">
+        <span class="title">Tangle Teezer Performans Panosu <span class="tag multi">Çok kanal</span></span>
+        <span class="desc">Kanal bazında ve toplam KPI matrisi — ciro, sipariş, dönüşüm.</span>
+        <span class="stamp"><span>MTD 01–04 Eylül 2026</span><span class="lockline">&#128274; parola korumalı</span></span>
+      </span>
+      <span class="go" aria-hidden="true">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10"></path><path d="M9 4l4 4-4 4"></path></svg>
+      </span>
+    </a>
+
+    <a class="report" href="reklam/">
+      <span class="main">
+        <span class="title">Trendyol Reklam Performansı <span class="tag tr">Trendyol</span></span>
+        <span class="desc">Reklam tipi kırılımı, günlük seyir, dönem karşılaştırmaları ve bütçe/TBM aksiyonları.</span>
+        <span class="stamp"><span>MTD 01–05 Eylül 2026</span><span class="lockline">&#128274; parola korumalı</span></span>
+      </span>
+      <span class="go" aria-hidden="true">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10"></path><path d="M9 4l4 4-4 4"></path></svg>
+      </span>
+    </a>
+  </section>
+
+  <section class="group">
+    <span class="group-label">Hazırlanıyor</span>
+
+    <div class="report soon">
+      <span class="main">
+        <span class="title">Hepsiburada Reklam Performansı <span class="tag hb">Hepsiburada</span></span>
+        <span class="desc">Merchant panelinden aynı dönem için reklam harcaması, ciro ve ROAS kırılımı.</span>
+        <span class="stamp"><span>veri çekimi bekleniyor</span></span>
+      </span>
+      <span class="go" aria-hidden="true">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4v4l2.5 2.5"></path><circle cx="8" cy="8" r="6"></circle></svg>
+      </span>
+    </div>
+  </section>
+
+  <footer>
+    <span>tangle-teezer-panosu</span>
+    <span>Son güncelleme: 05.09.2026</span>
+  </footer>
+
 </div>
-<script id="payload" type="application/octet-stream">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</script>
-<script>
-(function(){
-  const ITER = 250000;
-  const b64 = document.getElementById('payload').textContent.trim();
-  const f = document.getElementById('f'), inp = document.getElementById('p'),
-        btn = document.getElementById('b'), err = document.getElementById('e');
-
-  function bytes(s){ const bin = atob(s); const u = new Uint8Array(bin.length);
-    for (let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); return u; }
-
-  async function open_(pw){
-    const raw = bytes(b64);
-    const salt = raw.slice(0,16), iv = raw.slice(16,28), ct = raw.slice(28);
-    const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pw),
-                   'PBKDF2', false, ['deriveKey']);
-    const key = await crypto.subtle.deriveKey(
-      { name:'PBKDF2', salt, iterations:ITER, hash:'SHA-256' }, base,
-      { name:'AES-GCM', length:256 }, false, ['decrypt']);
-    const out = await crypto.subtle.decrypt({ name:'AES-GCM', iv }, key, ct);
-    const ds = new DecompressionStream('gzip');
-    const stream = new Blob([out]).stream().pipeThrough(ds);
-    return await new Response(stream).text();
-  }
-
-  function render(html){
-    document.body.innerHTML = html;
-    document.body.querySelectorAll('script').forEach(old => {
-      const s = document.createElement('script');
-      for (const a of old.attributes) s.setAttribute(a.name, a.value);
-      s.textContent = old.textContent;
-      old.replaceWith(s);
-    });
-    try { sessionStorage.setItem('ttp', '1'); } catch(_){}
-  }
-
-  f.addEventListener('submit', async (ev) => {
-    ev.preventDefault();
-    err.textContent = ''; btn.disabled = true; btn.textContent = 'Açılıyor…';
-    try {
-      render(await open_(inp.value));
-    } catch(_) {
-      err.textContent = 'Parola hatalı.';
-      btn.disabled = false; btn.textContent = 'Panoyu aç';
-      inp.select();
-    }
-  });
-})();
-</script>
 </body>
 </html>
