@@ -7,6 +7,8 @@ Raporlar GitHub Pages üzerinde yayınlanır.
 | Raporlar (ana sayfa) | `index.html` | açık |
 | Tangle Teezer Performans Panosu | `performans/index.html` | parola korumalı |
 | Trendyol Reklam Performansı | `reklam/index.html` | parola korumalı |
+| Operasyon Raporu | `operasyon/index.html` | parola korumalı |
+| Pazaryeri KPI One-Pager | `kpi/index.html` | parola korumalı |
 
 Korumalı sayfaların içeriği gzip'lenip AES-256-GCM ile şifrelenmiş olarak sayfaya
 gömülüdür; anahtar paroladan PBKDF2-SHA256 (250.000 tur) ile türetilir ve çözme
