@@ -10,10 +10,12 @@ today.json (iptaller hariç; [ciro, sipariş, satılan adet]):
     "total": [284018.66, 171, 185],        # Pixa dashboardSales, tüm mağazalar
     "Hepsiburada": [35121.46, 20, 23],
     "Trendyol2": [1079.5, 1, 2],
-    "Idefix": [0, 0, 0]
+    "Idefix": [0, 0, 0],
+    "Trendyol3": [0, 0, 0],                # La Rosee Paris
+    "Hepsiburada2": [0, 0, 0]              # La Rosee Paris
   }
 
-Trendyol = toplam − diğer üç mağaza. Betik sayfayı çözer, <!--TODAY--> ile
+Eksik mağaza anahtarı [0, 0, 0] sayılır. Trendyol = toplam − diğer mağazalar. Betik sayfayı çözer, <!--TODAY--> ile
 <!--/TODAY--> arasındaki bölümü yeniden yazar ve aynı parolayla şifreler.
 Veri ya da parola repoya yazılmaz.
 """
@@ -26,9 +28,10 @@ import tempfile
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import rebuild  # noqa: E402
 
-STORES = ["Trendyol", "Hepsiburada", "Trendyol2", "Idefix"]
+STORES = ["Trendyol", "Hepsiburada", "Trendyol2", "Idefix", "Trendyol3", "Hepsiburada2"]
 COLORS = {"Trendyol": "#ffa06b", "Hepsiburada": "#ff8f9c", "Trendyol2": "#f2c46b",
-          "Idefix": "#7fd8b4", "Toplam": "#9085e9"}
+          "Idefix": "#7fd8b4", "Trendyol3": "#7cc4f0", "Hepsiburada2": "#d39be8",
+          "Toplam": "#9085e9"}
 
 
 def tl(v, dec=0):
